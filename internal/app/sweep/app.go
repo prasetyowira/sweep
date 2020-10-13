@@ -27,8 +27,6 @@ import (
 	"github.com/prasetyowira/sweep/internal/app/sweep/product/productdriver"
 )
 
-const messagingTopic = "product"
-
 // InitializeApp initializes a new HTTP and a new gRPC application.
 func InitializeApp(
 	httpRouter *mux.Router,

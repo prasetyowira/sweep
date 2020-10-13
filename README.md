@@ -1,10 +1,10 @@
-# Messaging API
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/prasetyowira/message/CI?style=flat-square)
+# SWEEP API
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/prasetyowira/sweep/CI?style=flat-square)
 ![CI](https://github.com/prasetyowira/sweep/workflows/CI/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/prasetyowira/sweep)](https://goreportcard.com/report/github.com/prasetyowira/sweep)
 [![GolangCI](https://golangci.com/badges/github.com/prasetyowira/sweep.svg)](https://golangci.com/r/github.com/prasetyowira/sweep)
 
-A Messaging with Golang for Warung Pintar recruitment assignment
+A Sweep API for recruitment assignment
 
 ## Getting started
 
@@ -41,44 +41,6 @@ GET http://127.0.0.1:8000/message/{id}
 
 Open openapi doc on port [127.0.0.1:81](127.0.0.1:81)
 
-### Graphql
-
-
-```http
-GET/POST http://127.0.0.1:8000/graphql
-```
-
-To explore more, open graphql playground
-```http
-GET http://127.0.0.1:8000/playground
-```
-
-### Websocket
-
-
-```http
-ws://127.0.0.1:8000/ws
-```
-
-To use, open sample client
-```http
-GET http://127.0.0.1:8000/websocket
-```
-
-
-### GRPC
-
-
-```http
-http://127.0.0.1:8001
-```
-
-.proto file
-```console
-./api/proto/messaging/v1
-```
-if you run with bloomRPC, make sure the import path is
-```{project_dir}/api/proto```
 
 
 ### Testing

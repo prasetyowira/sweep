@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
-    title: "Messaging API"
-    description: "Manage Messages"
+    title: "Sweep API"
+    description: "Manage Product"
     version: "1.0.0"
 host: "localhost:8000"
 basePath: "/"

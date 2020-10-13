@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  description: Manage Messages
-  title: Messaging API
+  description: Manage Product
+  title: Sweep API
   version: 1.0.0
 servers:
 - url: http://localhost:8000/
