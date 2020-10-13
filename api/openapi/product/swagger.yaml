@@ -1,0 +1,192 @@
+swagger: "2.0"
+info:
+    title: "Messaging API"
+    description: "Manage Messages"
+    version: "1.0.0"
+host: "localhost:8000"
+basePath: "/"
+schemes:
+    - "http"
+    - "https"
+
+securityDefinitions:
+    api_key:
+        type: "apiKey"
+        name: "api_key"
+        in: "header"
+
+paths:
+    /product:
+        post:
+            summary: "Add a new Product to the list"
+            description: ""
+            operationId: "createProduct"
+            consumes:
+                - "application/json"
+            produces:
+                - "application/json"
+            parameters:
+                -
+                    name: "body"
+                    in: "body"
+                    required: true
+                    schema:
+                        $ref: "#/definitions/CreateProductRequest"
+            responses:
+                201:
+                    description: "created"
+                    schema:
+                        $ref: "#/definitions/CreateProductResponse"
+                400:
+                    description: "invalid request"
+                    schema:
+                        $ref: "#/definitions/GenericError"
+                500:
+                    description: "unexpected error"
+                    schema:
+                        $ref: "#/definitions/GenericError"
+
+        get:
+            summary: "List Products"
+            description: ""
+            operationId: "listProducts"
+            consumes:
+                - "application/json"
+            produces:
+                - "application/json"
+            responses:
+                200:
+                    description: "successful operation"
+                    schema:
+                        $ref: "#/definitions/ProductList"
+                500:
+                    description: "unexpected error"
+                    schema:
+                        $ref: "#/definitions/GenericError"
+
+    /product/{id}:
+        get:
+            summary: "Get Product by ID"
+            description: ""
+            operationId: "getProduct"
+            parameters:
+                -
+                    in: path
+                    name: id
+                    type: string
+                    required: true
+                    description: UID of the Product
+            consumes:
+                - "application/json"
+            produces:
+                - "application/json"
+            responses:
+                200:
+                    description: "successful operation"
+                    schema:
+                        $ref: "#/definitions/Product"
+                404:
+                    description: "not found"
+                    schema:
+                        $ref: "#/definitions/GenericError"
+                500:
+                    description: "unexpected error"
+                    schema:
+                        $ref: "#/definitions/GenericError"
+
+    /product/sku/{sku}:
+        get:
+            summary: "Get Product by SKU"
+            description: ""
+            operationId: "getProductBySKU"
+            parameters:
+                -   in: path
+                    name: sku
+                    type: string
+                    required: true
+                    description: SKU of the Product
+            consumes:
+                - "application/json"
+            produces:
+                - "application/json"
+            responses:
+                200:
+                    description: "successful operation"
+                    schema:
+                        $ref: "#/definitions/Product"
+                404:
+                    description: "not found"
+                    schema:
+                        $ref: "#/definitions/GenericError"
+                500:
+                    description: "unexpected error"
+                    schema:
+                        $ref: "#/definitions/GenericError"
+
+definitions:
+    Product:
+        type: "object"
+        properties:
+            id:
+                type: "string"
+            sku:
+                type: "string"
+            name:
+                type: "string"
+            expirable:
+                type: "boolean"
+        required:
+            - id
+            - sku
+            - name
+            - expirable
+
+    ProudctList:
+        type: "object"
+        properties:
+            products:
+                type: "array"
+                items:
+                    $ref: '#/definitions/Product'
+
+    CreateProductRequest:
+        type: "object"
+        properties:
+            sku:
+                type: "string"
+            name:
+                type: "string"
+            expirable:
+                type: "boolean"
+        required:
+            - sku
+            - name
+            - expirable
+
+    CreateProductResponse:
+        type: "object"
+        properties:
+            id:
+                type: "string"
+        required:
+            - id
+
+    GenericError:
+        type: "object"
+        properties:
+            type:
+                type: "string"
+            title:
+                type: "string"
+            status:
+                type: "integer"
+            detail:
+                type: "string"
+            instance:
+                type: "string"
+        required:
+            - type
+        example:
+            type: "about:blank"
+            title: "Not Found"
+            status: 404

@@ -1,0 +1,15 @@
+*
+
+!.git/
+!.gen/
+!*.go
+!cmd/
+!go.*
+!internal/
+!pkg/
+!static/
+!Makefile
+!.env.dist
+!config.toml.dist
+!wait-for-db.sh
+**/pkged.go

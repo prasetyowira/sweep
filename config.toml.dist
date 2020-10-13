@@ -1,0 +1,37 @@
+environment = "production"
+debug = false
+shutdownTimeout = "15s"
+
+[log]
+format = "json"
+level = "info"
+
+[telemetry]
+addr = ":10000"
+
+[opencensus.exporter]
+enabled = false
+address = "127.0.0.1:55678"
+insecure = false
+reconnectPeriod = "5s"
+
+[opencensus.trace]
+sampling = { sampler = "always" }
+# sampling = { sampler = "probability", fraction = 0.5 }
+
+[opencensus.prometheus]
+enabled = false
+
+[app]
+httpAddr = ":8000"
+grpcAddr = ":8001"
+
+storage = "database"
+
+[database]
+host = "127.0.0.1"
+port = 3306
+user = "root"
+pass = "root"
+name = "sweep_app"
+params = { collation = "utf8mb4_general_ci" }

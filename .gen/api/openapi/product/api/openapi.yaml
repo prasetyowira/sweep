@@ -1,0 +1,195 @@
+openapi: 3.0.1
+info:
+  description: Manage Messages
+  title: Messaging API
+  version: 1.0.0
+servers:
+- url: http://localhost:8000/
+- url: https://localhost:8000/
+paths:
+  /product:
+    get:
+      operationId: listProducts
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+          description: successful operation
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: unexpected error
+      summary: List Products
+    post:
+      operationId: createProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProductResponse'
+          description: created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: invalid request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: unexpected error
+      summary: Add a new Product to the list
+      x-codegen-request-body-name: body
+  /product/{id}:
+    get:
+      operationId: getProduct
+      parameters:
+      - description: UID of the Product
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: successful operation
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: unexpected error
+      summary: Get Product by ID
+  /product/sku/{sku}:
+    get:
+      operationId: getProductBySKU
+      parameters:
+      - description: SKU of the Product
+        in: path
+        name: sku
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: successful operation
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+          description: unexpected error
+      summary: Get Product by SKU
+components:
+  schemas:
+    Product:
+      example:
+        expirable: true
+        name: name
+        id: id
+        sku: sku
+      properties:
+        id:
+          type: string
+        sku:
+          type: string
+        name:
+          type: string
+        expirable:
+          type: boolean
+      required:
+      - expirable
+      - id
+      - name
+      - sku
+      type: object
+    ProudctList:
+      properties:
+        products:
+          items:
+            $ref: '#/components/schemas/Product'
+          type: array
+      type: object
+    CreateProductRequest:
+      example:
+        expirable: true
+        name: name
+        sku: sku
+      properties:
+        sku:
+          type: string
+        name:
+          type: string
+        expirable:
+          type: boolean
+      required:
+      - expirable
+      - name
+      - sku
+      type: object
+    CreateProductResponse:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    GenericError:
+      example:
+        type: about:blank
+        title: Not Found
+        status: 404
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+      required:
+      - type
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: api_key
+      type: apiKey

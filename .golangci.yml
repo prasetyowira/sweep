@@ -1,0 +1,26 @@
+run:
+    skip-dirs:
+        - .gen
+
+    skip-files:
+        - ".*_gen\\.go$"
+
+linters-settings:
+    golint:
+        min-confidence: 0.1
+    goimports:
+        local-prefixes: github.com/prasetyowira/sweep
+
+linters:
+    enable-all: true
+    disable:
+        - funlen
+        - maligned
+        - wsl
+        - gomnd
+        - gofmt
+        - goimports
+        - godox
+
+service:
+    golangci-lint-version: 1.23.x
